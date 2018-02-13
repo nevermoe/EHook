@@ -1,6 +1,7 @@
 # EHook
 
-A hooking framework for Commercial Android Emulator ([雷电模拟器](http://www.ldmnq.com/), [NOX](https://jp.bignox.com/))
+A hooking framework for Commercial Android Emulator ([雷电模拟器](http://www.ldmnq.com/), [NOX](https://jp.bignox.com/)).
+As you may know, these commercail emulator used x86 (kernel) and arm (user land) mixed mode to accelerate the emulation and make it difficult to hook the arm navtive so files. So I made this hooking framework!
 
 
 # Usage
@@ -30,5 +31,5 @@ Or just run `sh push.sh` if you are on *nix system.
 4. On android, type `./stalker [pid]`.
 
 # Notice
-For NOX emulator, you should use the Android 5.1.1 instead of the default 4.4.2.
-
+1. For NOX emulator, you should use the Android 5.1.1 instead of the default 4.4.2.
+2. I will refactor some code 1 week later.
