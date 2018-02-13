@@ -1,7 +1,7 @@
 # EHook
 
 A hooking framework for Commercial Android Emulator ([雷电模拟器](http://www.ldmnq.com/), [NOX](https://jp.bignox.com/)).
-As you may know, these commercail emulator used x86 (kernel) and arm (user land) mixed mode to accelerate the emulation and make it difficult to hook the arm navtive so files. So I made this hooking framework!
+As you may know, these commercail emulator used x86 (kernel) and arm (user land) mixed mode to accelerate the emulation and this makes it difficult to hook the arm navtive so files. So I made this hooking framework!
 
 
 # Usage
