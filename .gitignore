@@ -1,0 +1,9 @@
+*.swp
+*.id0
+*.id1
+*.id2
+*.idb
+*.nam
+*.til
+*.un~
+obj/
