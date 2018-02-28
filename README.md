@@ -1,6 +1,6 @@
 # EHook
 
-A hooking framework for Commercial Android emulators ([雷电模拟器](http://www.ldmnq.com/), [NOX](https://jp.bignox.com/), [BlueStacks](https://www.bluestacks.com/ja/index.html#gref)).
+A hooking framework for commercial Android emulators ([雷电模拟器](http://www.ldmnq.com/), [NOX](https://jp.bignox.com/), [BlueStacks](https://www.bluestacks.com/ja/index.html#gref)).
 
 As you may know, these commercail emulators use x86 (kernel) and arm (user land) mixed-mode method to accelerate the emulation and this makes it difficult to hook the native arm libraries. This emulator hooking framework is intented to solve this problem.
 
