@@ -29,29 +29,24 @@ int hook_recvfrom(int p0,int p1,int p2,int p3,int p4,int p5,int p6,int p7,int p8
 }
 
 
-static void con() __attribute__((constructor));
+static void real_init_func() __attribute__((constructor));
 
-void con() 
+void real_init_func() 
 {
-    LOGD("I'm a constructor\n");
+    LOGD("real_init_func called\n");
+
     long target_addr = 0;
 
     target_addr = 0x590f0;//sendto
+
+    /*Bluestacks*/
+    //hook_by_addr(&eph_sendto, "arm/libc.so", target_addr, hook_sendto);
+    //hook_by_name(&eph_recvfrom, "arm/libc.so", "recvfrom", hook_recvfrom);
+
+    /*Other emulators*/
     hook_by_addr(&eph_sendto, "nb/libc.so", target_addr, hook_sendto);
     hook_by_name(&eph_recvfrom, "nb/libc.so", "recvfrom", hook_recvfrom);
+
+    LOGD("real_init_func ended\n");
 }
 
-#if 0
-//uint32_t JNI_OnLoad(void* vm, void* reserved)
-int real_init_func(char * str)
-{
-    LOGD("librealinject.so Called");
-
-    long target_addr = 0;
-
-    target_addr = 0x590f0;//sendto
-    hook_by_addr(&eph1, "nb/libc.so", target_addr, hook_func1);
-
-    return 0;
-}
-#endif
