@@ -1,7 +1,8 @@
 # EHook
 
-A hooking framework for Commercial Android Emulator ([雷电模拟器](http://www.ldmnq.com/), [NOX](https://jp.bignox.com/)).
-As you may know, these commercail emulator used x86 (kernel) and arm (user land) mixed mode to accelerate the emulation and this makes it difficult to hook the arm navtive so files. So I made this hooking framework!
+A hooking framework for Commercial Android Emulator ([雷电模拟器](http://www.ldmnq.com/), [NOX](https://jp.bignox.com/)), [BlueStacks](https://www.bluestacks.com/ja/index.html#gref).
+
+As you may know, these commercail emulators use x86 (kernel) and arm (user land) mixed-mode method to accelerate the emulation and this makes it difficult to hook the arm native so files. So I made this hooking framework!
 
 
 # Usage
@@ -14,10 +15,13 @@ As you may know, these commercail emulator used x86 (kernel) and arm (user land)
     ...
     ...
     
-    hook_by_addr(&eph1, "libc.so", target_addr, hook_func1);
+    /*On BlueStacks*/
+    //hook_by_addr(&eph1, "arm/libc.so", target_addr, hook_func1);
     
-    hook_by_name(&eph_sendto, "libc.so", "sendto", hook_sendto);
+    /*Other emulators*/
+    hook_by_name(&eph_sendto, "nb/libc.so", "sendto", hook_sendto);
 ```
+**Notice:** If you are hooking system libraries like "libc.so", please make sure you are giving the right path of the arm version binary.
     
 2. Run `ndk-build`
 
@@ -26,10 +30,9 @@ As you may know, these commercail emulator used x86 (kernel) and arm (user land)
     `libs/x86/libinject.so`
     `libs/armeabi/librealinject.so`
 
-Or just run `sh push.sh` if you are on *nix system.
+Or just run `push.cmd`.
 
 4. On android, type `./stalker [pid]`.
 
 # Notice
 1. For NOX emulator, you should use the Android 5.1.1 instead of the default 4.4.2.
-2. I will refactor some code 1 week later.
