@@ -24,13 +24,26 @@ void load_real_lib_bluestacks()
 
 }
 
-void load_real_lib()
+void load_real_lib_4_4_2()
+{
+    void* dvm2hdDlopen = 0, *librealinject = 0, *libhoudini = 0;
+
+    libhoudini = dlopen("/system/lib/libhoudini.so", RTLD_NOW);
+    LOGD("libhoudini.so handler addr is %p\n", libhoudini);
+
+    dvm2hdDlopen = dlsym(libhoudini, "dvm2hdDlopen");
+    LOGD("dvm2hdDlopen addr is %p\n", dvm2hdDlopen);
+
+    librealinject = ((dvm2_hd_dlopen*)dvm2hdDlopen)("/data/local/tmp/librealinject.so", RTLD_NOW);
+    LOGD("librealinject.so handler addr is %p\n", librealinject);
+}
+
+void load_real_lib_5_5_1()
 {
     void* libnativebridge = 0, *NativeBridgeLoadLibrary = 0, 
         *librealinject = 0;
     libnativebridge = dlopen("/system/lib/libnativebridge.so", RTLD_NOW);
     LOGD("libnativebridge.so handler addr is %p\n", libnativebridge);
-
 
     NativeBridgeLoadLibrary = dlsym(libnativebridge, "_ZN7android23NativeBridgeLoadLibraryEPKci");
     LOGD("NativeBridgeLoadLibrary addr is %p\n", NativeBridgeLoadLibrary);
@@ -55,12 +68,17 @@ int init_func(char * str){
     LOGD("%s, hook in pid = %d\n", str, getpid());
 
     char* nb_file = "/system/lib/libnativebridge.so";
+    char* dvm_file = "/system/lib/libdvm.so";
+    char* btrans_file = "/system/lib/lib3btrans.so";
     if( access(nb_file, F_OK) != -1 ) {
-        // file exists
-        load_real_lib();
-    } else {
-        // file doesn't exist
+        // native bridge exists, Android 5.5.1
+        load_real_lib_5_5_1();
+    } else if ( access(btrans_file, F_OK) != -1){
+        // BlueStacks
         load_real_lib_bluestacks();
+    } else { //dvm_file exsits
+        //Android 4.4.2, maybe NOX
+        load_real_lib_4_4_2();
     }
 
 

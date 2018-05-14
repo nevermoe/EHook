@@ -27,9 +27,12 @@ void get_module_range(pid_t pid, const char* module_name, uint32_t* start_addr, 
             if (strstr(line, module_name)) {
                 pch = strtok(line, "-");
                 *start_addr = strtoul(pch, NULL, 16);
-                pch = strtok(NULL, "-");
-                if (end_addr)
+                //LOGD("pch start: %s start_addr: %x\n", pch, *start_addr);
+                pch = strtok(NULL, " ");
+                if (end_addr) {
                     *end_addr = strtoul(pch, NULL, 16);
+                    //LOGD("pch end: %s end_addr: %x\n", pch, *end_addr);
+                }
 
                 /*
                 if (*start_addr == 0x8000) {
@@ -56,8 +59,8 @@ int hook_by_name(struct hook_t *h, char* module_name, const char* func_name, voi
     //get module range for self process
     uint32_t module_start_addr = 0, module_end_addr = 0;
     get_module_range(0, module_name, &module_start_addr, &module_end_addr);
-    if(module_start_addr == 0 || module_start_addr == 0) {
-        LOGD("HOOK_ERROR_SO_NOT_FOUND\n");
+    if(module_start_addr == 0 || module_end_addr == 0) {
+        LOGD("HOOK_ERROR_SO_NOT_FOUND: %s\n", module_name);
         return HOOK_ERROR_SO_NOT_FOUND;
     }
 
@@ -80,8 +83,8 @@ int hook_by_addr(struct hook_t *h, char* module_name, unsigned int addr, void *h
 	
     uint32_t module_start_addr = 0, module_end_addr = 0;
     get_module_range(0, module_name, &module_start_addr, &module_end_addr);
-    if(module_start_addr == 0 || module_start_addr == 0) {
-        LOGD("HOOK_ERROR_SO_NOT_FOUND\n");
+    if(module_start_addr == 0 || module_end_addr == 0) {
+        LOGD("HOOK_ERROR_SO_NOT_FOUND: %s\n", module_name);
         return HOOK_ERROR_SO_NOT_FOUND;
     }
     unsigned int func_addr = module_start_addr + addr;
