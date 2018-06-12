@@ -36,3 +36,4 @@ Or just run `push.cmd`.
 
 # Notice
 1. For NOX emulator, you should use the Android 5.1.1 instead of the default 4.4.2.
+2. Also see this repo: [XEHook](https://github.com/nevermoe/XEHook).
